@@ -1,0 +1,46 @@
+<html>
+    <head>    
+        <meta charset="UTF-8"/>
+
+    </head>
+    <body>
+        <button onclick="showContacts()">Hiển thị danh bạ</button>
+        <ul id='contacts'>
+        </ul>
+        
+        <script>
+            var contacts=[
+                {name:'Duy',phoneNumber:'0333157510'},
+                {name:'Quy',phoneNumber:'0882563210'},
+                {name:'Nhat',phoneNumber:'0363210154'},
+                {name:'Hai',phoneNumber:'0372132012'}
+            ];
+            function getContactsString() {
+            var result = '';
+            for (var element of contacts) {
+                result += '<li id="' + element.phoneNumber + '">' + element.name + ' ' + element.phoneNumber + ' ' + '<input type="button" onclick="xoalienhe(this)" data-phone="' + element.phoneNumber + '" value="Xóa" data-name="'+ element.name+'" />' + '</li>';
+
+            }
+            return result;
+        }
+            function showContacts(){
+                document.getElementById('contacts').innerHTML=getContactsString();
+            }
+            function xoalienhe(element) {
+            var phoneNumber = element.getAttribute('data-phone');
+            var name = element.getAttribute('data-name');
+            if (confirm('Bạn muốn xóa liên hệ "' + name +' '+ phoneNumber + '"  được chọn?')) {
+                for (var index = 0; index < contacts.length; index++) {
+                    if (typeof contacts[index] !== 'undefined') {
+                        if (contacts[index].phoneNumber == phoneNumber) {
+                            delete contacts[index];
+                            document.getElementById(phoneNumber).remove();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        </script>
+    </body>
+</html>
